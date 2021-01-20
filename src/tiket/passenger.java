@@ -27,18 +27,19 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class passenger extends javax.swing.JFrame {
 
-    Connection con;
+    Connection conn;
     Statement st;
-    ResultSet rs;
+    ResultSet re;
         
     /**
-     * Creates new form Penumpang
+     * Creates new form passenger
      */
     public passenger() {
         initComponents();
-        ConnectionDB.getKoneksi();
+        ConnectionDB.getKoneksi();  
         data();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,11 +75,11 @@ public class passenger extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Name", "Address", "Bus", "From", "Destination", "Departure‏", "Arrived", "Date", "Amount", "Total"
+                "Id", "Name", "Address", "From", "Destination", "Departure‏", "Arrived", "Date", "Bus", "Class", "Jumlah", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false, false, false, false, true, true
+                false, false, false, false, false, true, false, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -104,9 +105,9 @@ public class passenger extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(21, 21, 21)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
-                .addGap(59, 59, 59))
+                .addGap(50, 50, 50))
         );
 
         jPanel5.setBackground(new java.awt.Color(22, 66, 70));
@@ -220,9 +221,9 @@ public class passenger extends javax.swing.JFrame {
         try{
             int pesan = JOptionPane.showOptionDialog(this, "Yakin Ingin Menghapus Data?","Bener Yeuh",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null,null,null);
             if (pesan == JOptionPane.YES_OPTION){
-                con = ConnectionDB.getKoneksi();
+                conn = ConnectionDB.getKoneksi();
                 String sql = "DELETE FROM passenger";
-                st = con.createStatement();
+                st = conn.createStatement();
                 st.execute(sql);
                 JOptionPane.showMessageDialog(null,"Berhasil");
                 DefaultTableModel model = (DefaultTableModel) passenger.getModel();
@@ -240,24 +241,26 @@ public class passenger extends javax.swing.JFrame {
 
     private void data(){
      try{
-            con = ConnectionDB.getKoneksi();
+            conn = ConnectionDB.getKoneksi();
             String sql1 = "SELECT * FROM passenger order by id ASC";
-            st = con.createStatement();
-            rs = st.executeQuery(sql1);
-            while(rs.next()){
+            st = conn.createStatement();
+            re = st.executeQuery(sql1);
+            while(re.next()){
                 DefaultTableModel model = (DefaultTableModel) passenger.getModel();
-                Object[] row = new Object[11];
-                row[0] = rs.getString("id");
-                row[1] = rs.getString("name_passenger");
-                row[2] = rs.getString("address_passenger");
-                row[3] = rs.getString("from_passenger");
-                row[4] = rs.getString("destination");
-                row[5] = rs.getString("departure‏");
-                row[6] = rs.getString("arrived");
-                row[7] = rs.getString("date");
-                row[8] = rs.getString("bus");
-                row[9] = rs.getString("total");
-                row[10] = rs.getString("jumlah");
+                Object[] row = new Object[12];
+                row[0] = re.getString("id");
+                row[1] = re.getString("name_passenger");
+                row[2] = re.getString("address_passenger");
+                row[3] = re.getString("from_passenger");
+                row[4] = re.getString("destination");
+                row[5] = re.getString("departure‏");
+                row[6] = re.getString("arrived");
+                row[7] = re.getString("date");
+                row[8] = re.getString("bus");
+                row[9] = re.getString("cclass");
+                row[10] = re.getString("total");
+                row[11] = re.getString("jumlah");
+                
                 
                 model.addRow(row);
             }

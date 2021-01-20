@@ -11,11 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.sql.Statement;
-import java.util.HashMap;
 import javax.swing.JOptionPane;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author mamur
@@ -85,7 +81,7 @@ public class Home extends javax.swing.JFrame {
         sjumlah = new javax.swing.JSpinner();
         fbayar = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        cgerbong = new javax.swing.JComboBox<>();
+        cclass = new javax.swing.JComboBox<>();
         ltotal = new javax.swing.JLabel();
         lkembali = new javax.swing.JLabel();
         datee = new com.toedter.calendar.JDateChooser();
@@ -202,6 +198,11 @@ public class Home extends javax.swing.JFrame {
         fbayar.setBackground(new java.awt.Color(204, 204, 255));
         fbayar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         fbayar.setForeground(new java.awt.Color(255, 162, 174));
+        fbayar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fbayarActionPerformed(evt);
+            }
+        });
         fbayar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 bayar(evt);
@@ -212,10 +213,10 @@ public class Home extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(255, 162, 174));
         jLabel16.setText("Class                  :");
 
-        cgerbong.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        cgerbong.setForeground(new java.awt.Color(255, 162, 174));
-        cgerbong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih Class --", "Eksekutif", "Bisnis", "Ekonomi" }));
-        cgerbong.addActionListener(new java.awt.event.ActionListener() {
+        cclass.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        cclass.setForeground(new java.awt.Color(255, 162, 174));
+        cclass.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih Class --", "Eksekutif", "Bisnis", "Ekonomi" }));
+        cclass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kelas(evt);
             }
@@ -271,6 +272,11 @@ public class Home extends javax.swing.JFrame {
 
         b2.setEditable(false);
         b2.setForeground(new java.awt.Color(255, 162, 174));
+        b2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b2ActionPerformed(evt);
+            }
+        });
 
         b3.setEditable(false);
         b3.setForeground(new java.awt.Color(255, 162, 174));
@@ -292,7 +298,7 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cgerbong, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cclass, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
@@ -413,7 +419,7 @@ public class Home extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
-                            .addComponent(cgerbong, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cclass, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(b5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(b2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -632,8 +638,18 @@ public class Home extends javax.swing.JFrame {
         
         try{
             conn = ConnectionDB.getKoneksi();
-            String sql = "INSERT INTO passenger VALUES('"+fid.getText()+"','"+fnama.getText()+"','"+faddress.getText()+"','"+from.getText()+"','"+destination.getSelectedItem()+"','"+departure‏.getText()+"','"+arrived.getText()+"','"+datee.getDate()+"','"+Bus.getSelectedItem()+"','"
-                    +"','"+"','"+ltotal.getText()+"','"+sjumlah.getValue()+"')";
+            String sql = "INSERT INTO passenger VALUES('"+fid.getText()+
+                    "','"+fnama.getText()+
+                    "','"+faddress.getText()+
+                    "','"+from.getText()+
+                    "','"+destination.getSelectedItem()+
+                    "','"+departure.getText()+
+                    "','"+arrived.getText()+
+                    "','"+datee.getDate()+
+                    "','"+Bus.getSelectedItem()+
+                    "','"+cclass.getSelectedItem()+
+                    "','"+ltotal.getText()+
+                    "','"+sjumlah.getValue()+"')";
             statement = conn.createStatement();
             statement.execute(sql);
             this.dispose();
@@ -655,17 +671,17 @@ public class Home extends javax.swing.JFrame {
 
     private void kelas(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kelas
         
-        if(cgerbong.getSelectedItem().equals("Eksekutif")){
+        if(cclass.getSelectedItem().equals("Eksekutif")){
             b5.setText("eksekutif");
-        }else if(cgerbong.getSelectedItem().equals("Bisnis")){
+        }else if(cclass.getSelectedItem().equals("Bisnis")){
             b5.setText("bisnis");
-        }else if(cgerbong.getSelectedItem().equals("Ekonomi")){
+        }else if(cclass.getSelectedItem().equals("Ekonomi")){
             b5.setText("ekonomi");
         }
         
         conn = ConnectionDB.getKoneksi();
         
-        if(cgerbong.getSelectedItem().equals("Eksekutif")){
+        if(cclass.getSelectedItem().equals("Eksekutif")){
             try{    
                 statement = conn.createStatement();
                 
@@ -683,7 +699,7 @@ public class Home extends javax.swing.JFrame {
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,e);
         }
-        }else if((cgerbong.getSelectedItem().equals("Ekonomi"))){
+        }else if((cclass.getSelectedItem().equals("Ekonomi"))){
             try{    
                 statement = conn.createStatement();
                 
@@ -701,7 +717,7 @@ public class Home extends javax.swing.JFrame {
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,e);
         }
-        } else if(cgerbong.getSelectedItem().equals("Bisnis")){
+        } else if(cclass.getSelectedItem().equals("Bisnis")){
             try{    
                 statement = conn.createStatement();
                 
@@ -743,6 +759,10 @@ public class Home extends javax.swing.JFrame {
     private void fidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fidActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fidActionPerformed
+/***/
+    private void b2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_b2ActionPerformed
 
     private void anak(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_anak
         int a = Integer.parseInt(b1.getText());
@@ -753,6 +773,10 @@ public class Home extends javax.swing.JFrame {
         ltotal.setText("Rp. "+d);
         b2.setText(""+d);
     }//GEN-LAST:event_anak
+
+    private void fbayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fbayarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fbayarActionPerformed
 
   
     
@@ -806,7 +830,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSpinner b4;
     private javax.swing.JTextField b5;
     private javax.swing.JButton btnsimpan;
-    private javax.swing.JComboBox<String> cgerbong;
+    private javax.swing.JComboBox<String> cclass;
     private com.toedter.calendar.JDateChooser datee;
     private javax.swing.JLabel departure‏;
     private javax.swing.JComboBox<String> destination;

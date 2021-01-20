@@ -69,6 +69,11 @@ public class Login extends javax.swing.JFrame {
         });
 
         password.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordActionPerformed(evt);
+            }
+        });
 
         btnlogin.setBackground(new java.awt.Color(22, 66, 70));
         btnlogin.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
@@ -179,6 +184,10 @@ public class Login extends javax.swing.JFrame {
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameActionPerformed
+
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordActionPerformed
     
     /**
      * @param args the command line arguments

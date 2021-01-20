@@ -135,7 +135,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel16" min="-2" pref="139" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="cgerbong" max="32767" attributes="0"/>
+                              <Component id="cclass" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -295,7 +295,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cgerbong" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="cclass" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                   <Component id="b5" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="b1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="b2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -557,6 +557,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fbayarActionPerformed"/>
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="bayar"/>
               </Events>
             </Component>
@@ -571,7 +572,7 @@
                 <Property name="text" type="java.lang.String" value="Class                  :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cgerbong">
+            <Component class="javax.swing.JComboBox" name="cclass">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="18" style="0"/>
@@ -735,6 +736,9 @@
                   <Color blue="ae" green="a2" red="ff" type="rgb"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="b2ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="b3">
               <Properties>

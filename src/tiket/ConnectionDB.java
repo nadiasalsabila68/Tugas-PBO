@@ -10,6 +10,10 @@ import com.mysql.jdbc.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
+import javax.swing.JSpinner;
 
 /**
  *
@@ -28,8 +32,12 @@ public class ConnectionDB {
                 String user = "root";
                 String pass = "";
                 
+                String url2 = "jdbc:sqlite:C:\\Users\\abo zyad\\Documents\\sqliteDB\\tiketbus\\tiketbus.sqlite";
+                String user2 = "root";
+                String pass2 = "";
+               
                 koneksi = (Connection) DriverManager.getConnection(url,user,pass);
-                //JOptionPane.showMessageDialog(null,"ConnectionDB Berhasil");
+                //JOptionPane.showMessageDialog(null,"Koneksi Berhasil");
                 System.out.println("Koneksi Berhasil");
             }catch(SQLException ex){
                 JOptionPane.showMessageDialog(null,"Koneksi Gagal");
@@ -38,5 +46,7 @@ public class ConnectionDB {
         }
         return koneksi;
     }
+    JLabel hanak;
+    JSpinner sanak;
     
-}
+}               

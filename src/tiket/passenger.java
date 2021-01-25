@@ -258,8 +258,8 @@ public class passenger extends javax.swing.JFrame {
                 row[7] = re.getString("date");
                 row[8] = re.getString("bus");
                 row[9] = re.getString("cclass");
-                row[10] = re.getString("total");
-                row[11] = re.getString("jumlah");
+                row[10] = re.getString("jumlah");
+                row[11] = re.getString("total");
                 
                 
                 model.addRow(row);
